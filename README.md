@@ -32,7 +32,7 @@ The site is hosted with **GitHub Pages** from the `main` branch root (configured
 
 ## Credits
 
-The layout is inspired by [Brittany Chiang's](https://brittanychiang.com) portfolio; all code here is original. Company names and logos belong to their respective owners and are used only to identify where I've worked.
+Company names and logos belong to their respective owners and are used only to identify where I've worked.
 
 ## Contact
 

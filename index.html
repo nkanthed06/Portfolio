@@ -1,0 +1,357 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Nirav Kanthed, Software and ML Engineer. Experience at Amazon, IBM, Lemn-Lab and SanQuest.">
+<title>Nirav Kanthed Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+<style>
+/* Layout: split screen — sticky header/nav on the left, scrolling content on the right; single deliberate dark theme with cursor spotlight */
+:root{
+  color-scheme:dark;
+  --bg:#0f172a; --text:#94a3b8; --head:#e2e8f0; --dim:#64748b;
+  --accent:#5eead4; --chip-bg:rgba(45,212,191,.10); --chip:#5eead4;
+  --card:rgba(30,41,59,.5); --card-line:rgba(148,163,184,.1);
+  --font:"Inter",ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{background:var(--bg);color:var(--text);font-family:var(--font);font-size:16px;line-height:1.625;-webkit-font-smoothing:antialiased}
+::selection{background:#5eead4;color:#134e4a}
+a{color:inherit;text-decoration:none}
+a:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:4px}
+
+.spot{pointer-events:none;position:fixed;inset:0;z-index:0;transition:background .3s}
+.page{position:relative;z-index:1;max-width:1280px;margin:0 auto;padding-inline:24px;padding-block:48px}
+@media (min-width:768px){.page{padding-inline:48px;padding-block:80px}}
+@media (min-width:1024px){.page{padding-inline:96px;padding-block:0}}
+.grid{display:grid;grid-template-columns:minmax(0,1fr)}
+@media (min-width:1024px){.grid{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px}}
+
+header.side{display:flex;flex-direction:column}
+@media (min-width:1024px){header.side{position:sticky;top:env(safe-area-inset-top,0px);max-height:100vh;height:100vh;justify-content:space-between;padding-block:96px}}
+h1{font-size:clamp(2.25rem,5vw,3rem);font-weight:700;letter-spacing:-.025em;line-height:1.1;color:var(--head);margin:0}
+.title{font-size:1.125rem;font-weight:500;color:var(--head);margin:12px 0 0;letter-spacing:-.01em}
+@media (min-width:640px){.title{font-size:1.25rem}}
+.lede{max-width:20rem;margin:16px 0 0;line-height:1.6}
+
+nav{display:none}
+@media (min-width:1024px){nav{display:block;margin-top:64px}}
+nav ul{list-style:none;margin:0;padding:0;width:max-content}
+nav a{display:flex;align-items:center;padding-block:12px}
+nav .ln{height:1px;width:32px;background:var(--dim);margin-right:16px;transition:all .15s}
+nav .lb{font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--dim);transition:color .15s}
+nav a:hover .ln,nav a.on .ln{width:64px;background:var(--head)}
+nav a:hover .lb,nav a.on .lb{color:var(--head)}
+
+.social{list-style:none;margin:32px 0 0;padding:0;display:flex;align-items:center;gap:20px}
+.social a,.social button{color:var(--text);display:block;transition:color .15s;background:none;border:0;padding:0;cursor:pointer}
+.social a:hover,.social button:hover{color:var(--head)}
+.social svg{width:24px;height:24px;display:block}
+.mail{font-size:.8rem;color:var(--dim);margin-top:12px}
+
+main{padding-top:96px;min-width:0}
+@media (min-width:1024px){main{padding-block:96px}}
+section{margin-bottom:64px;scroll-margin-top:96px}
+@media (min-width:768px){section{margin-bottom:96px}}
+@media (min-width:1024px){section{margin-bottom:144px}}
+.sec-h{position:sticky;top:0;z-index:5;margin:0 -24px 16px;padding:20px 24px;background:rgba(15,23,42,.75);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+@media (min-width:768px){.sec-h{margin-inline:-48px;padding-inline:48px}}
+@media (min-width:1024px){.sec-h{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);margin:0;padding:0}}
+.sec-h h2{font-size:.875rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--head);margin:0}
+
+.about p{margin:0 0 16px}
+.about p:last-child{margin:0}
+.about strong{color:var(--head);font-weight:500}
+.about a{color:var(--head);font-weight:500}
+.about a:hover{color:var(--accent)}
+
+ol.cards{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:48px}
+.card{position:relative;display:grid;grid-template-columns:minmax(0,1fr);gap:8px;padding-bottom:4px;transition:opacity .2s}
+@media (min-width:640px){.card{grid-template-columns:repeat(8,minmax(0,1fr));gap:32px}}
+@media (min-width:768px){.card{gap:16px}}
+.card .bg{position:absolute;inset:-16px -24px;z-index:0;border-radius:6px;display:none;transition:all .2s}
+@media (min-width:1024px){
+  .card .bg{display:block}
+  ol.cards:hover .card{opacity:.5}
+  ol.cards .card:hover{opacity:1}
+  .card:hover .bg{background:var(--card);box-shadow:inset 0 1px 0 0 var(--card-line);-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px)}
+  .card:hover h3,.card:hover h3 .arrow{color:var(--accent)}
+}
+.date{position:relative;z-index:1;margin:4px 0 8px;font-size:.75rem;font-weight:600;text-transform:uppercase;letter-spacing:.05em;color:var(--dim);font-variant-numeric:tabular-nums}
+@media (min-width:640px){.date{grid-column:span 2}}
+.body{position:relative;z-index:1;min-width:0}
+@media (min-width:640px){.body{grid-column:span 6}}
+.card h3{margin:0;font-weight:500;line-height:1.35;color:var(--head);font-size:1rem;transition:color .15s}
+.card h3 .arrow{display:inline-block;margin-left:4px;font-size:.85em;transition:transform .15s}
+.card:hover h3 .arrow{transform:translate(2px,-2px)}
+.card .sub{color:var(--dim);font-size:.9rem;margin:2px 0 0}
+.card p.desc{margin:8px 0 0;font-size:.875rem;line-height:1.6}
+.card ul.pts{margin:8px 0 0;padding:0 0 0 18px;font-size:.875rem;line-height:1.6;display:flex;flex-direction:column;gap:6px}
+.card ul.pts li::marker{color:var(--dim)}
+.tags{list-style:none;margin:8px 0 0;padding:0;display:flex;flex-wrap:wrap;gap:6px}
+.tags li{margin-top:6px;font-size:.75rem;font-weight:500;line-height:1.25rem;color:var(--chip);background:var(--chip-bg);padding:4px 12px;border-radius:999px}
+
+.thumb{position:relative;z-index:1;order:2;border:2px solid rgba(226,232,240,.1);border-radius:4px;aspect-ratio:16/10;max-width:200px;width:100%;overflow:hidden;background:#111c33;transition:border-color .2s}
+@media (min-width:640px){.thumb{order:1;grid-column:span 2;margin-top:4px}}
+.card:hover .thumb{border-color:rgba(226,232,240,.3)}
+.thumb svg{width:100%;height:100%;display:block}
+.xhead{display:flex;gap:14px;align-items:flex-start}
+.xhead>div{min-width:0}
+.co{flex:none;width:44px;height:44px;border-radius:10px;display:grid;place-items:center;margin-top:2px;
+  background:linear-gradient(145deg,var(--t1),var(--t2));box-shadow:inset 0 0 0 1px var(--tb),0 6px 16px -6px var(--tg);transition:transform .2s,box-shadow .2s}
+.co svg{width:22px;height:22px}
+.card:hover .co{transform:translateY(-2px) rotate(-3deg);box-shadow:inset 0 0 0 1px var(--tb),0 10px 22px -6px var(--tg)}
+.co.teal{--t1:rgba(94,234,212,.18);--t2:rgba(94,234,212,.04);--tb:rgba(94,234,212,.35);--tg:rgba(94,234,212,.35);color:#5eead4}
+.co.indigo{--t1:rgba(129,140,248,.2);--t2:rgba(129,140,248,.04);--tb:rgba(129,140,248,.38);--tg:rgba(129,140,248,.35);color:#a5b4fc}
+.co.violet{--t1:rgba(192,132,252,.2);--t2:rgba(192,132,252,.04);--tb:rgba(192,132,252,.38);--tg:rgba(192,132,252,.35);color:#d8b4fe}
+.co.sky{--t1:rgba(56,189,248,.2);--t2:rgba(56,189,248,.04);--tb:rgba(56,189,248,.38);--tg:rgba(56,189,248,.35);color:#7dd3fc}
+.co.logo{--t1:#fff;--t2:#f1f5f9;--tb:rgba(255,255,255,.6);--tg:rgba(148,163,184,.35);padding:7px}
+.co.logo img{width:100%;height:100%;object-fit:contain;display:block}
+.co.logo svg{width:100%;height:100%}
+.co-name{font-size:.72rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--dim);margin:0 0 2px}
+.proj .body{order:1}
+.card h3 a{color:inherit}
+.card h3 a::after{content:"";position:absolute;inset:-16px -24px;z-index:3;border-radius:6px}
+@media (max-width:1023px){.card h3 a::after{inset:0}}
+.repo{display:inline-flex;align-items:center;gap:6px;margin-top:10px;font-size:.8rem;font-weight:500;color:var(--head)}
+.repo svg{width:14px;height:14px}
+.card:hover .repo{color:var(--accent)}
+@media (min-width:640px){.proj .body{order:2}}
+
+.more{display:inline-flex;align-items:center;gap:6px;margin-top:48px;font-weight:600;color:var(--head);font-size:1rem}
+.more:hover{color:var(--accent)}
+.more:hover .arr{transform:translateX(4px)}
+.arr{transition:transform .15s;display:inline-block}
+
+footer{max-width:28rem;padding-bottom:64px;font-size:.875rem;color:var(--dim)}
+@media (min-width:640px){footer{padding-bottom:0}}
+footer a{color:var(--text);font-weight:500}
+footer a:hover{color:var(--accent)}
+</style>
+</head>
+<body>
+
+<div class="spot" id="spot"></div>
+
+<div class="page">
+ <div class="grid">
+  <header class="side">
+    <div>
+      <h1><a href="#about">Nirav Kanthed</a></h1>
+      <h2 class="title">Software &amp; ML Engineer</h2>
+      <p class="lede">I build machine learning systems that hold up in production, from speech models to experiment pipelines.</p>
+      <nav aria-label="In-page jump links">
+        <ul>
+          <li><a href="#about" data-sec="about"><span class="ln"></span><span class="lb">About</span></a></li>
+          <li><a href="#experience" data-sec="experience"><span class="ln"></span><span class="lb">Experience</span></a></li>
+          <li><a href="#projects" data-sec="projects"><span class="ln"></span><span class="lb">Projects</span></a></li>
+        </ul>
+      </nav>
+    </div>
+    <div>
+      <ul class="social" aria-label="Social media">
+        <li><a href="https://github.com/nkanthed06" target="_blank" rel="noopener" aria-label="GitHub" title="GitHub">
+          <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.870.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.020.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg></a></li>
+        <li><a href="https://www.linkedin.com/" target="_blank" rel="noopener" aria-label="LinkedIn" title="LinkedIn">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.5 2h-17A1.5 1.5 0 002 3.5v17A1.5 1.5 0 003.5 22h17a1.5 1.5 0 001.5-1.5v-17A1.5 1.5 0 0020.5 2zM8 19H5v-9h3zM6.5 8.25A1.75 1.75 0 118.3 6.5a1.78 1.78 0 01-1.8 1.75zM19 19h-3v-4.74c0-1.42-.6-1.93-1.38-1.93A1.74 1.74 0 0013 14.19a.66.66 0 000 .14V19h-3v-9h2.9v1.3a3.11 3.11 0 012.7-1.4c1.55 0 3.36.86 3.36 3.66z"/></svg></a></li>
+        <li><button type="button" id="copy" aria-label="Copy email address" title="Copy email">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></button></li>
+      </ul>
+      <p class="mail" id="mail">niravkanthed2@gmail.com</p>
+    </div>
+  </header>
+
+  <main>
+    <section id="about" class="about" aria-label="About me">
+      <div class="sec-h"><h2>About</h2></div>
+      <p>I'm a Data Science student at <strong>UC San Diego</strong> who cares most about what happens after the notebook: getting a model trained reliably, tested before it ships, and explained to the people who depend on it.</p>
+      <p>Right now I'm a software engineering intern on <strong>Amazon Prime Video</strong>, productionizing the ML system economists use to measure the long-term impact of A/B experiments. Before that I built OpenAPI linting and an AI documentation agent for <strong>HashiCorp Vault</strong> at IBM, and spent a year at <strong>Lemn-Lab</strong> fine-tuning Whisper for underrepresented languages, cutting word error rate by 52%.</p>
+      <p>Outside of work I'm President of the <strong>DataHacks</strong> team at DS3 and a Director at ACM, and I keep shipping side projects like <a href="#projects">TokenLens</a>, <a href="#projects">ReviewReady</a>, and <a href="#projects">JobTrackr</a>.</p>
+    </section>
+
+    <section id="experience" aria-label="Work experience">
+      <div class="sec-h"><h2>Experience</h2></div>
+      <ol class="cards">
+        <li class="card">
+          <div class="bg"></div>
+          <div class="date">Sep — Dec 2026</div>
+          <div class="body">
+            <div class="xhead"><span class="co logo"><img src="data:image/png;base64,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" alt="Amazon logo"></span><div><p class="co-name">Amazon</p><h3>Software Development Engineer Intern</h3><p class="sub">Prime Video Team · Seattle, WA</p></div></div>
+            <ul class="pts">
+              <li>Productionized Prime Video's Composite Metrics ML system across training, inference, and validation, aligning research and production so economists can reliably measure long-term engagement and monetization impact from A/B tests.</li>
+              <li>Built an automated pre-submit ML test pipeline covering train → inference → validation, catching configuration and runtime failures before code review.</li>
+              <li>Built self-service model explainability and hosted validation reporting, helping economists investigate experiment results faster with less manual analysis.</li>
+            </ul>
+            <ul class="tags"><li>Python</li><li>ML Pipelines</li><li>Explainability</li><li>A/B Testing</li></ul>
+          </div>
+        </li>
+        <li class="card">
+          <div class="bg"></div>
+          <div class="date">Aug — Sep 2026</div>
+          <div class="body">
+            <div class="xhead"><span class="co logo"><img src="data:image/png;base64,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" alt="IBM logo"></span><div><p class="co-name">IBM</p><h3>Software Development Engineering Co-op</h3><p class="sub">HashiCorp Team · Austin, TX</p></div></div>
+            <ul class="pts">
+              <li>Detected new API documentation issues with 15 custom rules in the vacuum OpenAPI linter, using Go tools in GitHub Actions to compare specs before and after code changes, tested with 30 passing and failing cases.</li>
+              <li>Integrated a Claude agent into GitHub Actions that analyzes Go endpoint code and lint findings, then suggests missing path descriptions, operation summaries, and typed response schemas as one-click PR fixes.</li>
+              <li>Validated agent-proposed fixes in isolated builds by regenerating specs with Vault's Go OpenAPI generator and running Swagger and TypeScript client compatibility checks.</li>
+            </ul>
+            <ul class="tags"><li>Go</li><li>OpenAPI</li><li>GitHub Actions</li><li>Claude</li><li>TypeScript</li></ul>
+          </div>
+        </li>
+        <li class="card">
+          <div class="bg"></div>
+          <div class="date">Jan 2025 — Jan 2026</div>
+          <div class="body">
+            <div class="xhead"><span class="co logo" aria-hidden="true"><svg viewBox="0 0 30 30" aria-hidden="true"><rect x="3" y="3" width="24" height="24" rx="6" fill="#4c1d95"/><path d="M10 9v12h10" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><g stroke="#c4b5fd" stroke-width="1.8" stroke-linecap="round"><path d="M16 15v2M19 12.5v7M22 14v4"/></g></svg></span><div><p class="co-name">Lemn-Lab</p><h3>Machine Learning Researcher</h3><p class="sub">Language Learning Research · La Jolla, CA</p></div></div>
+            <ul class="pts">
+              <li>Improved speech recognition for 7 underrepresented languages by fine-tuning OpenAI Whisper with PyTorch on Google FLEURS and other public datasets, reducing word error rate by 52% relative to baseline.</li>
+              <li>Reduced trainable parameters by 98.7% (244M → 3.2M) by applying LoRA to Whisper and comparing WER against full fine-tuning, documenting findings for an ongoing research manuscript.</li>
+              <li>Automated Bayesian hyperparameter sweeps on Kubernetes and tracked results in Weights &amp; Biases.</li>
+            </ul>
+            <ul class="tags"><li>PyTorch</li><li>Whisper</li><li>LoRA</li><li>Kubernetes</li><li>Weights &amp; Biases</li></ul>
+          </div>
+        </li>
+        <li class="card">
+          <div class="bg"></div>
+          <div class="date">Jun — Sep 2025</div>
+          <div class="body">
+            <div class="xhead"><span class="co logo" aria-hidden="true"><svg viewBox="0 0 30 30" aria-hidden="true"><path d="M9 21h12.5a4.5 4.5 0 0 0 .7-8.94A6.5 6.5 0 0 0 9.6 11 5 5 0 0 0 9 21z" fill="#0369a1"/><text x="15.6" y="19" text-anchor="middle" font-family="Inter,system-ui,sans-serif" font-size="7.5" font-weight="700" fill="#fff" letter-spacing=".2">SQ</text></svg></span><div><p class="co-name">SanQuest Inc.</p><h3>Software Development Engineer Intern</h3><p class="sub">Cloud Solutions · Irving, TX</p></div></div>
+            <ul class="pts">
+              <li>Built an HR onboarding dashboard with React, FastAPI, and PostgreSQL to centralize employee documents and track missing, submitted, and verified records.</li>
+              <li>Integrated the DocuSign API with FastAPI, stored files in AWS S3 with signed URLs, and saved document metadata in PostgreSQL.</li>
+              <li>Automated database migrations and integration tests with GitHub Actions to verify document uploads before deployment.</li>
+            </ul>
+            <ul class="tags"><li>React</li><li>FastAPI</li><li>PostgreSQL</li><li>AWS S3</li><li>DocuSign API</li></ul>
+          </div>
+        </li>
+      </ol>
+    </section>
+
+    <section id="projects" aria-label="Selected projects">
+      <div class="sec-h"><h2>Projects</h2></div>
+      <ol class="cards" id="projlist">
+        <li class="card proj">
+          <div class="bg"></div>
+          <div class="body">
+            <h3><a href="https://github.com/S-kalakota/tokenlens-agent" target="_blank" rel="noopener">TokenLens <span class="arrow">↗</span></a></h3>
+            <p class="desc">A Cursor / VS Code extension and Claude Code plugin that estimates output token usage before you send a prompt. A scikit-learn model trained on 12,052 coding prompts reaches a median absolute error of 180 tokens on Claude Haiku 4.5, and a LangGraph workflow suggests and ranks prompt rewrites from accept/reject history in MongoDB Atlas, exposed through an MCP server.</p>
+            <ul class="tags"><li>TypeScript</li><li>Python</li><li>scikit-learn</li><li>LangGraph</li><li>MongoDB</li><li>MCP</li></ul>
+          </div>
+          <div class="thumb" aria-hidden="true">
+            <svg viewBox="0 0 200 125"><defs><linearGradient id="tl" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0d2b2b"/><stop offset="1" stop-color="#111c33"/></linearGradient></defs>
+              <rect width="200" height="125" fill="url(#tl)"/>
+              <g fill="#1e3a4a"><rect x="22" y="30" width="22" height="12" rx="3"/><rect x="48" y="30" width="34" height="12" rx="3"/><rect x="86" y="30" width="18" height="12" rx="3"/><rect x="22" y="48" width="40" height="12" rx="3"/><rect x="66" y="48" width="16" height="12" rx="3"/><rect x="22" y="66" width="26" height="12" rx="3"/><rect x="52" y="66" width="30" height="12" rx="3"/><rect x="22" y="84" width="18" height="12" rx="3"/><rect x="44" y="84" width="38" height="12" rx="3"/></g>
+              <circle cx="128" cy="58" r="30" fill="rgba(94,234,212,.08)" stroke="#5eead4" stroke-width="5"/>
+              <g fill="#5eead4"><rect x="112" y="50" width="12" height="8" rx="2"/><rect x="127" y="50" width="18" height="8" rx="2"/><rect x="112" y="61" width="22" height="8" rx="2" opacity=".6"/></g>
+              <path d="M150 80 L172 102" stroke="#5eead4" stroke-width="9" stroke-linecap="round"/>
+              <text x="128" y="114" fill="#e2e8f0" font-family="Inter,system-ui,sans-serif" font-size="11" font-weight="700" text-anchor="middle" letter-spacing="1">TOKENLENS</text></svg>
+          </div>
+        </li>
+        <li class="card proj">
+          <div class="bg"></div>
+          <div class="body">
+            <h3><a href="https://github.com/nkanthed06/review-ready" target="_blank" rel="noopener">ReviewReady <span class="arrow">↗</span></a></h3>
+            <p class="desc">Paste a GitHub pull request link and get an AI code review: a plain-English summary, a 0–10 risk score, likely missing tests, and reviewer-style inline comments. The risk score blends a local heuristic with Claude's structured output, and every analysis is saved to Supabase with a shareable URL. Deployed on Cloudflare Workers.</p>
+            <ul class="tags"><li>React 19</li><li>TanStack Start</li><li>Tailwind</li><li>Supabase</li><li>Anthropic API</li><li>Cloudflare Workers</li></ul>
+          </div>
+          <div class="thumb" aria-hidden="true">
+            <svg viewBox="0 0 200 125"><rect width="200" height="125" fill="#14152b"/>
+              <g stroke="#818cf8" stroke-width="5" fill="none" stroke-linecap="round"><path d="M46 30 V95"/><path d="M90 30 V52 Q90 66 76 70 L58 76"/></g>
+              <circle cx="46" cy="28" r="8" fill="#14152b" stroke="#818cf8" stroke-width="5"/><circle cx="46" cy="97" r="8" fill="#14152b" stroke="#818cf8" stroke-width="5"/><circle cx="90" cy="28" r="8" fill="#14152b" stroke="#818cf8" stroke-width="5"/>
+              <path d="M112 86 A30 30 0 0 1 172 86" fill="none" stroke="#1e293b" stroke-width="9" stroke-linecap="round"/>
+              <path d="M112 86 A30 30 0 0 1 128 60" fill="none" stroke="#34d399" stroke-width="9" stroke-linecap="round"/>
+              <path d="M128 60 A30 30 0 0 1 156 60" fill="none" stroke="#fbbf24" stroke-width="9" stroke-linecap="round"/>
+              <path d="M156 60 A30 30 0 0 1 172 86" fill="none" stroke="#f87171" stroke-width="9" stroke-linecap="round"/>
+              <path d="M142 86 L130 66" stroke="#e2e8f0" stroke-width="4" stroke-linecap="round"/><circle cx="142" cy="86" r="5" fill="#e2e8f0"/>
+              <rect x="120" y="96" width="44" height="16" rx="8" fill="#34d399"/><path d="M131 104 l4 4 l8 -8" stroke="#14152b" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/><text x="150" y="108" fill="#14152b" font-family="Inter,system-ui,sans-serif" font-size="9" font-weight="700">3/10</text></svg>
+          </div>
+        </li>
+        <li class="card proj">
+          <div class="bg"></div>
+          <div class="body">
+            <h3><a href="https://github.com/nkanthed06/JobTrackr" target="_blank" rel="noopener">JobTrackr <span class="arrow">↗</span></a></h3>
+            <p class="desc">An internship tracking platform serving about 250 users, with JWT authentication, search and filters, and CSV imports, deployed on AWS EC2. Resume matching with TF-IDF and cosine similarity highlights missing keywords against job descriptions, tested on about 70 resumes.</p>
+            <ul class="tags"><li>React</li><li>Spring Boot</li><li>PostgreSQL</li><li>AWS EC2</li><li>NLP</li></ul>
+          </div>
+          <div class="thumb" aria-hidden="true">
+            <svg viewBox="0 0 200 125"><rect width="200" height="125" fill="#111c33"/>
+              <rect x="20" y="40" width="54" height="42" rx="6" fill="#0ea5e9"/><rect x="34" y="31" width="26" height="12" rx="4" fill="none" stroke="#0ea5e9" stroke-width="5"/><rect x="20" y="56" width="54" height="5" fill="#0369a1"/><rect x="42" y="53" width="10" height="11" rx="2" fill="#e0f2fe"/>
+              <g><rect x="92" y="28" width="88" height="16" rx="4" fill="#1e293b"/><rect x="98" y="34" width="40" height="5" rx="2" fill="#475569"/><rect x="152" y="32" width="22" height="8" rx="4" fill="#38bdf8"/></g>
+              <g><rect x="92" y="50" width="88" height="16" rx="4" fill="#1e293b"/><rect x="98" y="56" width="32" height="5" rx="2" fill="#475569"/><rect x="152" y="54" width="22" height="8" rx="4" fill="#fbbf24"/></g>
+              <g><rect x="92" y="72" width="88" height="16" rx="4" fill="#1e293b"/><rect x="98" y="78" width="46" height="5" rx="2" fill="#475569"/><rect x="152" y="76" width="22" height="8" rx="4" fill="#34d399"/></g>
+              <text x="47" y="104" fill="#e2e8f0" font-family="Inter,system-ui,sans-serif" font-size="11" font-weight="700" text-anchor="middle">JobTrackr</text>
+              <rect x="92" y="96" width="88" height="6" rx="3" fill="#1e293b"/><rect x="92" y="96" width="62" height="6" rx="3" fill="#38bdf8"/></svg>
+          </div>
+        </li>
+        <li class="card proj">
+          <div class="bg"></div>
+          <div class="body">
+            <h3><a href="https://github.com/nkanthed06/sandiego-crime-pulse" target="_blank" rel="noopener">CrimeWatch SD <span class="arrow">↗</span></a></h3>
+            <p class="desc">An interactive crime analytics dashboard for San Diego that maps neighborhood density and breaks down crime by type, time series, and hour of day, with filters for date range, crime type, and location.</p>
+            <ul class="tags"><li>React</li><li>TypeScript</li><li>Vite</li><li>Tailwind</li><li>shadcn/ui</li><li>Recharts</li></ul>
+          </div>
+          <div class="thumb" aria-hidden="true">
+            <svg viewBox="0 0 200 125"><rect width="200" height="125" fill="#1a1220"/>
+              <g stroke="#2a2033" stroke-width="1"><path d="M0 25H200M0 50H200M0 75H200M0 100H200M40 0V125M80 0V125M120 0V125M160 0V125"/></g>
+              <path d="M10 92 Q40 70 62 80 T110 66 T160 74 T196 58" fill="none" stroke="#3b2f4a" stroke-width="10" stroke-linecap="round"/>
+              <g fill="#fb7185"><circle cx="58" cy="42" r="14" opacity=".18"/><circle cx="58" cy="42" r="7" opacity=".35"/><circle cx="150" cy="40" r="18" opacity=".15"/><circle cx="150" cy="40" r="8" opacity=".3"/><circle cx="118" cy="92" r="11" opacity=".2"/><circle cx="30" cy="100" r="9" opacity=".2"/></g>
+              <path d="M100 18 C86 18 78 28 78 40 C78 56 100 76 100 76 C100 76 122 56 122 40 C122 28 114 18 100 18 Z" fill="#fb7185"/><circle cx="100" cy="40" r="8" fill="#1a1220"/>
+              <g fill="#fb7185"><rect x="150" y="98" width="6" height="14" rx="1" opacity=".5"/><rect x="159" y="90" width="6" height="22" rx="1" opacity=".7"/><rect x="168" y="94" width="6" height="18" rx="1" opacity=".6"/><rect x="177" y="84" width="6" height="28" rx="1"/></g>
+              <text x="100" y="108" fill="#fde2e7" font-family="Inter,system-ui,sans-serif" font-size="11" font-weight="700" text-anchor="middle" letter-spacing=".5">CRIMEWATCH SD</text></svg>
+          </div>
+        </li>
+        <li class="card proj">
+          <div class="bg"></div>
+          <div class="body">
+            <h3><a href="https://github.com/nkanthed06/Power-Outage-Analysis" target="_blank" rel="noopener">Power Outage Analysis <span class="arrow">↗</span></a></h3>
+            <p class="desc">A study of how the cause of a U.S. power outage relates to its severity, using 1,534 major outages from 2000–2016. Permutation tests showed cause and severity are not independent (p = 0.001), and a tuned Random Forest using cause, NERC region, and climate improved R² from −0.016 to 0.147 over a linear baseline, with a fairness check across regions.</p>
+            <ul class="tags"><li>Python</li><li>pandas</li><li>scikit-learn</li><li>Random Forest</li><li>Hypothesis Testing</li></ul>
+          </div>
+          <div class="thumb" aria-hidden="true">
+            <svg viewBox="0 0 200 125"><rect width="200" height="125" fill="#1c1708"/>
+              <g stroke="#2e2610" stroke-width="1"><path d="M20 30H190M20 55H190M20 80H190M20 105H190"/></g>
+              <polyline points="20,95 45,88 70,92 95,60 120,74 145,48 170,58 190,40" fill="none" stroke="#fbbf24" stroke-width="3" stroke-linejoin="round" opacity=".55"/>
+              <g fill="#fbbf24" opacity=".55"><circle cx="95" cy="60" r="3"/><circle cx="145" cy="48" r="3"/><circle cx="190" cy="40" r="3"/></g>
+              <path d="M64 14 L38 64 H58 L48 108 L84 50 H62 L76 14 Z" fill="#fbbf24" stroke="#1c1708" stroke-width="2" stroke-linejoin="round"/>
+              <text x="140" y="104" fill="#fef3c7" font-family="Inter,system-ui,sans-serif" font-size="10" font-weight="700" text-anchor="middle" letter-spacing=".5">R² 0.147</text></svg>
+          </div>
+        </li>
+      </ol>
+      <a class="more" href="https://github.com/nkanthed06" target="_blank" rel="noopener">View All Projects on GitHub <span class="arr">→</span></a>
+    </section>
+
+    <footer>
+      <p>Layout inspired by <a href="https://brittanychiang.com" target="_blank" rel="noopener">Brittany Chiang</a>. Built with HTML, CSS, and a little JavaScript, set in Inter.</p>
+    </footer>
+  </main>
+ </div>
+</div>
+
+<script>
+(function(){
+  const s=document.getElementById('spot');
+  const paint=(x,y)=>{s.style.background=`radial-gradient(600px at ${x}px ${y}px, rgba(29,78,216,0.15), transparent 80%)`};
+  paint(innerWidth*0.3,innerHeight*0.3);
+  addEventListener('pointermove',e=>paint(e.clientX,e.clientY));
+})();
+(function(){
+  const links=[...document.querySelectorAll('nav a')];
+  const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)links.forEach(l=>l.classList.toggle('on',l.dataset.sec===e.target.id))}),{rootMargin:'-30% 0px -60% 0px'});
+  document.querySelectorAll('main section').forEach(x=>io.observe(x));
+  links[0].classList.add('on');
+})();
+(function(){
+  const b=document.getElementById('copy'),m=document.getElementById('mail'),addr='niravkanthed2@gmail.com';
+  const sel=()=>{const r=document.createRange();r.selectNodeContents(m);const s=getSelection();s.removeAllRanges();s.addRange(r)};
+  b.addEventListener('click',()=>{
+    try{navigator.clipboard.writeText(addr).then(()=>{m.textContent='Copied to clipboard';setTimeout(()=>m.textContent=addr,1500)},sel)}catch(e){sel()}
+  });
+})();
+</script>
+</body>
+</html>

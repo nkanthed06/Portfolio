@@ -38,3 +38,4 @@ Company names and logos belong to their respective owners and are used only to i
 
 - Email: niravkanthed2@gmail.com
 - GitHub: [@nkanthed06](https://github.com/nkanthed06)
+- LinkedIn: [nkanthed5](https://www.linkedin.com/in/nkanthed5/)
